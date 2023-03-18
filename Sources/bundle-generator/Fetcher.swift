@@ -22,7 +22,7 @@ struct Fetcher {
             throw Error.executableNotFound
         }
         
-        let lastCommit = try parseLastCommit()
+        let lastCommit = try! parseLastCommit()
         let branchName = parseBranchName()
         return .init(lastCommit: lastCommit,
                      branch: branchName)
@@ -97,10 +97,10 @@ struct Fetcher {
         git.standardOutput = standardOutput
         git.standardError = standardError
         
-        try git.run()
+        try! git.run()
         git.waitUntilExit()
         
-        if git.terminationStatus > 0, let errorData = try standardError.fileHandleForReading.readToEnd(),
+        if git.terminationStatus > 0, let errorData = try! standardError.fileHandleForReading.readToEnd(),
             let errorString = String(data: errorData, encoding: .utf8) {
             if errorString.contains("does not have any commits yet") {
                 throw Error.noCommit
@@ -111,7 +111,7 @@ struct Fetcher {
             }
         }
         
-        let outputData = try standardOutput.fileHandleForReading.readToEnd()
+        let outputData = try! standardOutput.fileHandleForReading.readToEnd()
         guard let outputData else { throw Error.unexpectedOutput }
         guard let string = String(data: outputData, encoding: .utf8) else {
             throw Error.unexpectedOutput
