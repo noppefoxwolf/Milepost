@@ -14,7 +14,7 @@ func run() throws {
     let repositoryPath: URL = .init(fileURLWithPath: arguments[1])
     let gitExecutable: URL = .init(fileURLWithPath: "/usr/local/bin")
     let fetcher = Fetcher(repositoryPath: repositoryPath, gitExecutablePath: gitExecutable)
-    let revision = try fetcher.parse()
+    let revision = try! fetcher.parse()
     
     let outputPath = URL(fileURLWithPath: arguments[2])
     let generator = PlistGenerator(outputPath: outputPath)
@@ -22,7 +22,7 @@ func run() throws {
 }
 
 do {
-    try run()
+    try! run()
     exit(0)
 } catch {
     exit(1)

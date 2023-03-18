@@ -11,10 +11,10 @@ struct PlistGenerator {
     private let encoder = PropertyListEncoder()
     
     func generate(_ revision: Revision) throws {
-        let data = try encoder.encode(revision)
+        let data = try! encoder.encode(revision)
         if fileManager.fileExists(atPath: outputPath.path) {
-            try fileManager.removeItem(atPath: outputPath.path)
+            try! fileManager.removeItem(atPath: outputPath.path)
         }
-        try data.write(to: outputPath)
+        try! data.write(to: outputPath)
     }
 }
