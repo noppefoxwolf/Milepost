@@ -4,10 +4,10 @@ import PackagePlugin
 @main
 struct PrepareMilepost: BuildToolPlugin {
     func createBuildCommands(context: PluginContext, target: Target) async throws -> [Command] {
-        print("XXX")
+        debugPrint("XXX")
         let executablePath = try! context.tool(named: "bundle-generator").path
-        print("XXX2")
-        
+        debugPrint("XXX2")
+
         let outputFilesDir = context.pluginWorkDirectory.appending(target.name, "Resources")
         let outputPath = outputFilesDir.appending(subpath: "revision-plate.plist")
         

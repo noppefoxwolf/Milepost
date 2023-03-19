@@ -18,13 +18,13 @@ struct Fetcher {
     }
     
     func parse() throws -> Revision {
-        print(#function, #line)
+        debugPrint(#function, #line)
         guard fileManager.fileExists(atPath: gitExecutablePath.path) else {
             throw Error.executableNotFound
         }
-        print(#function, #line)
+        debugPrint(#function, #line)
         let lastCommit = try parseLastCommit()
-        print(#function, #line)
+        debugPrint(#function, #line)
         let branchName = parseBranchName()
         return .init(lastCommit: lastCommit,
                      branch: branchName)
@@ -46,33 +46,33 @@ struct Fetcher {
             "%ct", // Commit timestamp
         ]
             .joined(separator: "%n")
-            print(#function, #line)
+            debugPrint(#function, #line)
         guard let outputString = try? runGit("show", "-s", "--format=\(format)") else {
             throw Error.unexpectedOutput
         }
-        print(#function, #line)
+        debugPrint(#function, #line)
         let bits = outputString.split(separator: "\n").map(String.init)
-        print(#function, #line)
+        debugPrint(#function, #line)
         guard bits.count == 8 else {
             throw Error.unexpectedOutput
         }
-        print(#function, #line)
+        debugPrint(#function, #line)
         let hash = bits[0]
         let shortHash = bits[1]
         let authorName = bits[2]
         let authorEmail = bits[3]
-        print(#function, #line)
+        debugPrint(#function, #line)
         guard let authorDate = TimeInterval(bits[4]).map(Date.init(timeIntervalSince1970:)) else {
             throw Error.unexpectedOutput
         }
-        print(#function, #line)
+        debugPrint(#function, #line)
         let commitName = bits[5]
         let commitEmail = bits[6]
-        print(#function, #line)
+        debugPrint(#function, #line)
         guard let commitDate = TimeInterval(bits[7]).map(Date.init(timeIntervalSince1970:)) else {
             throw Error.unexpectedOutput
         }
-        print(#function, #line)
+        debugPrint(#function, #line)
         let subject = parseCommitSubject()
         
         return .init(author: .init(name: authorName, email: authorEmail),
