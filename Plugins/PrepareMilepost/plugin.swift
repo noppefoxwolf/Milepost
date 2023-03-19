@@ -8,7 +8,7 @@ struct PrepareMilepost: BuildToolPlugin {
         let executablePath = try! context.tool(named: "bundle-generator").path
         debugPrint("XXX2")
 
-        let outputFilesDir = context.pluginWorkDirectory.appending(target.name, "Resources")
+        let outputFilesDir = context.pluginWorkDirectory
         let outputPath = outputFilesDir.appending(subpath: "revision-plate.plist")
         
         return [
