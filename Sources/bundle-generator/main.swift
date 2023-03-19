@@ -12,7 +12,7 @@ func run() throws {
     }
     
     let repositoryPath: URL = .init(fileURLWithPath: arguments[1])
-    let gitExecutable: URL = .init(fileURLWithPath: "/opt/homebrew/bin/git")
+    let gitExecutable: URL = .init(fileURLWithPath: "/usr/local/bin/git")
     let fetcher = Fetcher(repositoryPath: repositoryPath, gitExecutablePath: gitExecutable)
     let revision = try! fetcher.parse()
     
