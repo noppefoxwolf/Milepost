@@ -12,13 +12,13 @@ func run() throws {
     }
     
     let repositoryPath: URL = .init(fileURLWithPath: arguments[1])
-    let gitExecutable: URL = .init(fileURLWithPath: "/usr/local/bin")
+    let gitExecutable: URL = .init(fileURLWithPath: "/opt/homebrew/bin/git")
     let fetcher = Fetcher(repositoryPath: repositoryPath, gitExecutablePath: gitExecutable)
     let revision = try! fetcher.parse()
     
     let outputPath = URL(fileURLWithPath: arguments[2])
     let generator = PlistGenerator(outputPath: outputPath)
-    try generator.generate(revision)
+    try! generator.generate(revision)
 }
 
 do {
